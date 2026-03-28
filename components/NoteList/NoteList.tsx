@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./NoteList.module.css";
 import { deleteNote } from "@/lib/api";
-
-type Note = {
-  id: string;
-  title: string;
-  content: string;
-  tag?: string;
-};
+import type { Note } from "@/types/note";
 
 interface NoteListProps {
   notes: Note[];
