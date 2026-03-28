@@ -17,9 +17,17 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Required"),
-  content: Yup.string().required("Required"),
-  tag: Yup.string().required("Required"),
+  title: Yup.string()
+    .min(3, "Min 3 characters")
+    .max(50, "Max 50 characters")
+    .required("Required"),
+
+  content: Yup.string()
+    .max(500, "Max 500 characters"),
+
+  tag: Yup.string()
+    .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
+    .required("Required"),
 });
 
 export default function NoteForm({ onClose }: NoteFormProps) {
@@ -68,6 +76,8 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             <option value="Todo">Todo</option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
+            <option value="Meeting">Meeting</option>
+            <option value="Shopping">Shopping</option>
           </Field>
           <ErrorMessage name="tag" component="p" className={css.error} />
         </div>

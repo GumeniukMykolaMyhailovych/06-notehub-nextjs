@@ -29,6 +29,7 @@ export default function NotesClient() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", page, debouncedSearch],
     queryFn: () => fetchNotes(page, debouncedSearch),
+    placeholderData: (prev) => prev,
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -65,7 +66,7 @@ export default function NotesClient() {
       )}
 
       {isOpen && (
-        <Modal>
+        <Modal onClose={() => setIsOpen(false)}>
           <NoteForm onClose={() => setIsOpen(false)} />
         </Modal>
       )}
