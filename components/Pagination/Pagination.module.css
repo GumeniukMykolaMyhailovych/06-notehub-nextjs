@@ -45,3 +45,46 @@
   color: #fff !important;
   font-weight: 500;
 }
+
+.page {
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.active {
+  font-weight: bold;
+}.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  list-style: none;
+  padding: 0;
+}
+
+.container li {
+  margin: 0 4px;
+}
+
+.container a {
+  padding: 6px 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #0d6efd;
+}
+
+.container a:hover {
+  background-color: #e7f1ff;
+}
+
+.active a {
+  background-color: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+}
+
+.disabled a {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

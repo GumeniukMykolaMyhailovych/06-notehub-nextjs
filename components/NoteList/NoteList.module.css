@@ -39,7 +39,6 @@
 }
 
 .button {
-  align-self: flex-end;
   padding: 6px 12px;
   font-size: 14px;
   color: #fff;
@@ -48,6 +47,12 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  box-sizing: border-box;
 }
 
 .button:hover {
@@ -76,19 +81,29 @@
 }
 
 .link {
-  align-self: flex-end;
   padding: 6px 12px;
   font-size: 14px;
   color: #fff;
-  background-color: #0d6efd; /* синій колір */
+  background-color: #0d6efd;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
   transition: background-color 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 .link:hover {
   background-color: #0b5ed7;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
 }
