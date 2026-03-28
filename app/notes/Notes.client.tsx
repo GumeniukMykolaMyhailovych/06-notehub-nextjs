@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchNotes } from "@/lib/api";
-import css from "../../styles/NotesPage.module.css";
+import styles from "../../styles/NotesPage.module.css";
 
 import NoteList from "@/components/NoteList/NoteList";
 import SearchBox from "@/components/SearchBox/SearchBox";
@@ -28,23 +28,21 @@ export default function NotesClient() {
   const totalPages = data?.totalPages || 1;
 
   return (
-    <div className={css.container}>
-      <h1 className={css.title}>Notes</h1>
+    <>
+      <h1>Notes</h1>
 
-      <div className={css.toolbar}>
+      <div className={styles.toolbar}>
         <SearchBox value={search} onChange={setSearch} />
         <NoteForm />
       </div>
 
-      <div className={css.content}>
-        <NoteList notes={data?.notes || []} />
-      </div>
+      <NoteList notes={data?.notes || []} />
 
       <Pagination
         page={page}
         totalPages={totalPages}
         onPageChange={setPage}
       />
-    </div>
+    </>
   );
 }
