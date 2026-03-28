@@ -1,15 +1,22 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { fetchNotes } from "@/lib/api";
-import Link from "next/link";
-import css from "@/styles/NotesPage.module.css";
-import listCss from "@/styles/NoteList.module.css";
+import css from "../../styles/NotesPage.module.css";
+
+import NoteList from "@/components/NoteList/NoteList";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import Pagination from "@/components/Pagination/Pagination";
+import NoteForm from "@/components/NoteForm/NoteForm";
 
 export default function NotesClient() {
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notes"],
-    queryFn: () => fetchNotes(1, ""),
+    queryKey: ["notes", page, search],
+    queryFn: () => fetchNotes(page, search),
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -18,24 +25,26 @@ export default function NotesClient() {
     return <p>Error loading notes: {error.message}</p>;
   }
 
-  if (!data?.notes.length) {
-    return <p>No notes found</p>;
-  }
+  const totalPages = data?.totalPages || 1;
 
   return (
     <div className={css.container}>
       <h1 className={css.title}>Notes</h1>
 
-      <ul className={listCss.list}>
-        {data.notes.map((note) => (
-          <li key={note.id} className={listCss.listItem}>
-            <Link href={`/notes/${note.id}`} className={listCss.link}>
-              <h3 className={listCss.title}>{note.title}</h3>
-              <p className={listCss.content}>{note.content}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className={css.toolbar}>
+        <SearchBox value={search} onChange={setSearch} />
+        <NoteForm />
+      </div>
+
+      <div className={css.content}>
+        <NoteList notes={data?.notes || []} />
+      </div>
+
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
     </div>
   );
 }
